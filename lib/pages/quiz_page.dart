@@ -1,0 +1,78 @@
+import 'package:flutter/material.dart';
+
+import '../utils/question.dart';
+import '../utils/quiz.dart';
+
+import '../ui/answer_button.dart';
+import '../ui/question_text.dart';
+import '../ui/correct_wrong_overlay.dart';
+
+import './score_page.dart';
+
+class QuizPage extends StatefulWidget {
+  @override
+  State createState() => new QuizPageState();
+}
+
+class QuizPageState extends State<QuizPage> {
+
+  Question currentQuestion;
+  Quiz quiz = new Quiz([
+    new Question("There are more grains of sand from all beaches combined, than the total number of stars in space", false),
+    new Question("Oreo cookies were created before chocolate chip cookies", true),
+    new Question("There's 10 times more bacteria in your body than actual body cells", true),
+    new Question("Cracking your knuckles too much will give you arthritis", false),
+    new Question("France was still using the guillotine when the first Star Wars film came out in 1977", true),
+  ]); // Quiz
+
+  String questionText;
+  int questionNumber;
+  bool isCorrect;
+  bool overlayShouldBeVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    currentQuestion = quiz.nextQuestion;
+    questionText = currentQuestion.question;
+    questionNumber = quiz.questionNumber;
+  }
+
+  void handleAnswer(bool answer) {
+    isCorrect = (currentQuestion.answer == answer);
+    quiz.answer(isCorrect);
+    this.setState(() {
+      overlayShouldBeVisible = true;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Stack(
+      fit: StackFit.expand,
+      children: <Widget>[
+        new Column( // main page
+          children: <Widget>[
+            new AnswerButton(true, () => handleAnswer(true)), // true button
+            new QuestionText(questionText, questionNumber),
+            new AnswerButton(false, () => handleAnswer(false)), //false button
+          ],
+        ),
+        overlayShouldBeVisible == true ? new CorrectWrongOverlay(
+          isCorrect,
+            () {
+            if (quiz.length == questionNumber) {
+              Navigator.of(context).pushAndRemoveUntil(new MaterialPageRoute(builder: (BuildContext context) => new ScorePage(quiz.score, quiz.length)), (Route route) => route == null);
+            }
+            currentQuestion = quiz.nextQuestion;
+            this.setState(() {
+              overlayShouldBeVisible = false;
+              questionText = currentQuestion.question;
+              questionNumber = quiz.questionNumber;
+            });
+            }
+        ) : new Container()
+      ],
+    );
+  }
+}
