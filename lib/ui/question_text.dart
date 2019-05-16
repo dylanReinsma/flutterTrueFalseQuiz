@@ -19,9 +19,9 @@ class _QuestionTextState extends State<QuestionText>
   void initState() {
     super.initState();
     _fontSizeAnimationController = new AnimationController(
-        duration: new Duration(milliseconds: 500), vsync: this);
+        duration: new Duration(milliseconds: 1000), vsync: this);
     _fontSizeAnimation = new CurvedAnimation(
-        parent: _fontSizeAnimationController, curve: Curves.bounceInOut);
+        parent: _fontSizeAnimationController, curve: Curves.bounceOut);
     _fontSizeAnimation.addListener(() => this.setState(() {}));
     _fontSizeAnimationController.forward();
   }
@@ -46,12 +46,12 @@ class _QuestionTextState extends State<QuestionText>
     return new Material(
       color: Colors.white,
       child: new Padding(
-        padding: new EdgeInsets.symmetric(vertical: 20),
+        padding: new EdgeInsets.symmetric(vertical: 15),
         child: new Center(
           child: new Text(
             "Statement " +
                 widget._questionNumber.toString() +
-                ": " +
+                "/5" + ": " +
                 widget._question,
             style: new TextStyle(fontSize: _fontSizeAnimation.value * 15),
             textAlign: TextAlign.center,

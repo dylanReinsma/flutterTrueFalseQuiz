@@ -20,7 +20,7 @@ class _CorrectWrongOverlayState extends State<CorrectWrongOverlay> with SingleTi
   @override
   void initState() {
     super.initState();
-    _iconAnimationController = new AnimationController(duration: new Duration(seconds: 2), vsync: this);
+    _iconAnimationController = new AnimationController(duration: new Duration(milliseconds: 2500), vsync: this);
     _iconAnimation = new CurvedAnimation(parent: _iconAnimationController, curve: Curves.elasticOut);
     _iconAnimation.addListener(() => this.setState(() {}));
     _iconAnimationController.forward();
@@ -48,7 +48,7 @@ class _CorrectWrongOverlayState extends State<CorrectWrongOverlay> with SingleTi
               ),
               child: new Transform.rotate(
                 angle: _iconAnimation.value * 2 * pi,
-                child: new Icon(widget._isCorrect == true ? Icons.done : Icons.clear, size: _iconAnimation.value * 80,),
+                child: new Icon(widget._isCorrect == true ? Icons.done : Icons.clear, size: _iconAnimation.value * 70,),
               )
             ),
             new Padding(

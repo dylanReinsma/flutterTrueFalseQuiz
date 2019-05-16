@@ -18,11 +18,11 @@ class QuizPageState extends State<QuizPage> {
 
   Question currentQuestion;
   Quiz quiz = new Quiz([
-    new Question("There are more grains of sand from all beaches combined, than the total number of stars in space", false),
-    new Question("Oreo cookies were created before chocolate chip cookies", true),
-    new Question("There's 10 times more bacteria in your body than actual body cells", true),
-    new Question("Cracking your knuckles too much will give you arthritis", false),
-    new Question("France was still using the guillotine when the first Star Wars film came out in 1977", true),
+    new Question("\nThere are more grains of sand\nfrom all beaches combined,\nthan the total number of stars in space.", false),
+    new Question("\nOreo cookies were created before\nchocolate chip cookies.", true),
+    new Question("\nThere's 10 times more bacteria in your body,\nthan actual body cells.", true),
+    new Question("\nCracking your knuckles too\nmuch will cause arthritis.", false),
+    new Question("\nFrance was still using the guillotine\nwhen the first Star Wars film came out in 1977.", true),
   ]); // Quiz
 
   String questionText;
